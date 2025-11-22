@@ -1,3 +1,6 @@
+Change Log
+> Change Log (2025-11-05): 
+> – Updated distance rule to support ‘short walks only’ preference
 `01_intake_setup  https://copilot.microsoft.com/shares/Gc1Kdfp98KafD2rpKicQj /modules/01_intake_setup.md
 `/modules/02_plan_builder.md`
 `/modules/03_feasibility_guardrails.md`
