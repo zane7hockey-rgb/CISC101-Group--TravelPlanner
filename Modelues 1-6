@@ -1,0 +1,574 @@
+# CISC 101: Week 10 Tutorial – Research Paper Summarizer: Advanced Prompt Engineering
+
+Welcome to the Week 10 tutorial for CISC 101. In this session, you will work in groups of 3 to apply advanced prompt engineering concepts: Specification Design, Test-Driven Development (TDD), and Modular Prompting  to the *Research Paper Summarizer* application. 
+
+Required Materials
+
+- Access to Microsoft Copilot (open in guest mode)
+- A text editor (e.g., Notepad, VS Code, Typedown) for Markdown files
+- The “Attention Is All You Need” paper PDF [[1706.03762] Attention Is All You Need](https://arxiv.org/abs/1706.03762) 
+- Collaboration with your group members
+
+## Tutorial Structure (1.5 hours)
+
+- **First 10 minutes**: Instructor reviews core concepts: spec design, TDD, and modular prompts.
+- **Next 60 minutes**: Complete group activities in four sets.
+- **Following 10 minutes**: Write and compile a 100-word group reflection.
+- **Final 10 minutes**: Q&A with instructor.
+  
+  
+
+## Activities (60 minutes)
+
+The tutorial includes four core sets that progressively build on your previous work with the *Research Paper Summarizer*.
+
+### Set 1: Specification Design for a Summarizer
+
+#### Task 1.1: Designing Summarization Specifications
+
+**Objective:** Write a short, testable specification defining how a multi-section summarizer should behave.
+
+**Background:** You are working on a summarization tool that can handle long academic papers by summarizing each section individually and combining the results into a unified summary. Before writing any prompts, you must define the inputs, outputs, and constraints for this system.
+
+**Steps:**
+
+1. Identify the **inputs**, **outputs**, and **constraints** of your summarizer. 
+   Use the table format below:
+
+| Category    | Description |
+| ----------- | ----------- |
+| Inputs      |             |
+| Outputs     |             |
+| Constraints |             |
+
+Insert at least <u>two components in each row</u>. Examples of constraints: maximum summary length per section, section order, audience type, consistency of terminology, etc. 
+
+2. Be specific and measurable — imagine this specification will serve as a ‘contract’ for the prompt’s behavior.
+
+3. Review your table as a group to ensure it clearly defines how the summarizer should behave. 
+
+**Deliverables:**
+
+- Specification table (inputs, outputs, constraints)
+
+### Set 2: Test-Driven Development (TDD)
+
+#### Task 2.1: Writing Tests Before Prompts
+
+**Objective:**  Apply the Red–Green–Refactor cycle to improve a summarization prompt systematically.
+
+**Background:** Based on your spec design, you will go through the RGR process to write and test three oracles and refine accordingly.
+
+**Use the following table:**
+
+| **Test ID** | **Test Oracle**                                                                                                | **Pass/Fail** | **Notes / Refinement Made** | **Transcript Link** |
+| ----------- | -------------------------------------------------------------------------------------------------------------- | ------------- | --------------------------- | ------------------- |
+| **T1**      | Example: The summary must mention all main sections of the paper (Introduction, Methods, Results, Discussion). |               |                             |                     |
+| **T2**      |                                                                                                                |               |                             |                     |
+| **T3**      |                                                                                                                |               |                             |                     |
+
+**Steps:**
+
+1. Write your first failing test (T1) and record it in the table below. Begin with a minimal prompt:
+   
+   > Summarize the paper "Attention Is All You Need".
+
+2. Run this prompt and record Fail/Pass in the table for T1. Save the transcript link.
+
+3. Revise the prompt to pass the failed test. Rerun it, then record the new Pass/Fail result in the same row. If it passes, save another transcript link. This same link (and output) can serve as the "fail test" for your next oracle iteration.
+
+4. Next, design another failing test (T2) and follow the same procedure. 
+   **NOTE**: If the test unexpectedly passes on the first trial, it may be due to _model memory leakage_ from earlier runs of the paper summarizer prompt. Record it as a pass, but refine your prompt regardless. If repeated failures occur even after reasonable efforts at refinement, note this in the table — no penalty will apply.
+
+5. Write a 25-word reflection explaining how writing tests first influenced your prompt design.
+
+**Deliverables:**
+
+- Completed test table with Pass/Fail results
+- Refined prompt versions (v1 → v3)
+- 25-word reflection
+
+### Set 3: Modular Prompting
+
+#### Task 3.1: Designing a Modular Summarizer
+
+**Objective:**  Use modular design to generate summaries for two different audiences — experts and laypersons.
+
+**Background:**  A research team wants a summarizer that produces both expert-level and general-audience summaries. You will design a modular summarizer with two linked modules.
+
+**Modules summary:**
+
+| **Module**         | **Description**                                                                                                                                                            | **Output**               |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
+| **A: Expert Lens** | Summarize one section (e.g., *Results*) in technical terms suitable for specialists. Focus on precision, terminology, and key findings.                                    | ~100-word expert summary |
+| **B: Lay Lens**    | Takes the output of A as its input. Re-express the same section for non-experts in plain language, using analogies and simple explanations while keeping factual accuracy. | ~100-word lay summary    |
+
+**Steps:**
+
+1. Choose one section of *Attention Is All You Need* (e.g., Results or Model Architecture).  
+2. Write two separate prompts (Modules A&B) following the table above.  The output of Module A serves as input in Module B.
+3. Run each module in Microsoft Copilot (guest mode).  
+4. Save transcript links for each module.  
+5. If you haven’t named the paper explicitly in your Module B prompt, rewrite your prompt again telling the LLM that this summary is from the "Attention is All You Need" research paper, and ask it to provide the layperson summary. Test the prompt, do you notice any differences to your first trial? (I.e., does providing the LLM with more information about the source of the summary change its answer?) If your original prompt named the paper, note that instead.
+6. Write a 50-word reflection addressing the following:  
+- How modularizing by audience improved tone, clarity, or control.  
+- Which module most improved reliability or readability.
+
+**Deliverables:**
+
+- Two prompts (A&B)  
+- Two transcript links  
+- Answer to step 5, 3-4 sentences
+- 50-word reflection  
+  
+  
+
+## Group Reflection
+
+Write a 100-word reflection covering:
+
+- How specification design, TDD, and modularity work together.  
+- How modularity improves clarity, reliability, and scalability for complex summarization systems.  
+- Which skill or concept was most challenging and why.  
+
+**Submission template:**
+
+```
+# Week 10 Group Reflection
+
+## Group Members
+- [Colin, Zane, Holden]
+
+---
+
+## Set 1: Specification Design for a Multi-Section Summarizer
+
+### Task 1.1: Designing Summarization Specifications
+
+| **Category** | **Description** |
+|---------------|-----------------|
+| **Inputs** | 1. Full text passages that can be aptly summarized (i.e. Attention is all you need) 2. summarized to a grade specific level - in this case university level
+
+| **Outputs** | 1. a markdown table with the headings section, key points and examples 2. a final section of the table meant to summarize the whole article in 1-2 sentences 
+
+| **Constraints** | 1. Maximum of 100 words per key point. 2. the info should only be taken from the paper - no other outside sources or information should be used. 3. the summary should follow the same order as the sections presented in the paper 4. must write summaries in accordance to the grade level inputted (inputted university level so check against that) 4. uses the same wording as the text to again demonstarte that no outside sources are used (to stay consistent with the original text and to not cut corners on the info it delivers.) 
+
+**Notes:**  
+[Insert any additional notes or assumptions made while defining the specification.]
+
+**Deliverable:**  
+Specification table completed above.
+
+---
+
+## Set 2: Test-Driven Development (TDD) for Summarization
+
+### Task 2.1: Writing Tests Before Prompts
+
+| **Test ID** | **Test Oracle (Expected Rule)** | **Pass/Fail** | **Notes / Refinement Made** 
+T1.            Must mentionall sections of paper      Fail           Minimal/prompt to vauge
+T2.             Must stay under 200 words.           fail            Potential missing or wrong content                              
+T3             Avoid Hallucinated content          Pass             Very clear and consice information
+
+**Transcript Link** | https://copilot.microsoft.com/shares/6rdZ1BznL4v5WAPXvRZug |--------------|---------------------------------|----------------|------------------------------|----------------------|
+
+**Refined Prompts:**  
+[v1: …]  Summarize the paper attention is all you need make sure to maintain all sections of paper
+[v2: …]  Summarize the paper attention is all you need, make sure to incloude all sections of paper, and keep it under 200 words
+[v3: …] Summarize the paper attention is all you need, make sure to incloude all sections of paper, keep it under 200 words, and avoid any hallucanted content 
+
+**25-word Reflection:**  
+Writing tests forced clarity, exposed missing requirments, and shaped each refinment. tests created objective targets preventing vaught prompts and consistently imporving structure completness and precsion.
+
+---
+
+## Set 3: Modular Prompting
+
+### Task 3.1: Designing and Testing a Perspective-Based Modular Summarizer
+
+
+**Module A**  
+Prompt: Write an 100 word expert summary of the section Model Architecture from the paper "Attention is all you need." Use precise suitable terminology that use suitable for specialists in that field. Focus on precision, terminilogy and key findings of the section.
+  
+**Transcript Link:** https://copilot.microsoft.com/shares/5DqpSL8YJTManDXhm32Cc
+
+**Module B**  
+Rewrite the summary from [Output A] as an 100 word layperson summary meant for non- experts. This summary should be written in plain language using simple analogiues and explanations while still keeping factual accuracy. 
+**Transcript Link:**  https://copilot.microsoft.com/shares/XAm68ZZgmdAEcL9YJbEw5
+
+**Answer to step 5**
+write a summary for  the section model architecture from the paper "Attention is all you need" as an 100 word layperson summary meant for non- experts. This summary should be written in plain language using simple analogiues and explanations while still keeping factual accuracy 
+
+- changing the prompt to specify the paper made it so the summary was cleaner simple and ckoser to this plain language summary that we want as opposed to the first one which leaned on metaphors to describe some of the aspects of the section - so overall a little more clarity once the paper was specified in the prompt
+
+**50-word Reflection:**  
+Modularizing helped improve clarity and control because each model has an exact role that its cut out to do and made sure the Llm didnt get confused in the process. This is because in module 1 its directly asking for an expert summary and in 2 a layperson summary that had been reprased from the irst. This allows the LLm to break down tks into seperate entitiies and not get confused by trying to do them at the same time. THis way we get more control over the outputs that are generated and clarity in our ansers as it focuses on one thing at a time.
+
+```100-word Reflection. 
+
+specification design, Tdd and modularity all work together to create prompts that have controlled flows that in turn let us generate better outputs. Modulairty improve clarity and reliability because it gives each prompt a design role thatt can then be transfered to other applications steamlining and simplifying the process into individual steps increasing reliability. The most challenging concept to grasp is porbably TDD only because it was hard to understand what was meant by test oracle at first and how we could create clear easy to understand tests to ensure good outputs in our prompting.
+
+**Deliverables**: Markdown file (`group#_week10_reflection.md`) with all task outputs, transcript links, and 100-word reflection.
+
+# CISC 101: Week 5 Tutorial - Research Paper Summarizer: Intensive I
+
+Welcome to the Week 5 tutorial for CISC 101. In this session, you will work in groups of 3 to apply concepts from Weeks 2–4 to the *Research Paper Summarizer* application, using computational thinking (decomposition, abstraction, pattern recognition), variables, conditionals, loops, chain-of-thought (CoT), few-shot prompting, and context windows to summarize "Attention Is All You Need" (Vaswani et al., 2017). Open Microsoft Copilot in guest mode before starting.
+
+## Required Materials
+
+- Access to Microsoft Copilot (open in guest mode).
+- A text editor (e.g., Notepad, VS Code, Typedown) for Markdown files.
+- The "Attention Is All You Need" paper PDF (download from https://arxiv.org/pdf/1706.03762).
+- Collaboration with group members.
+
+## Tutorial Structure (1.5 hours)
+
+- **First 10 minutes**: Instructor reviews Weeks 2–4 concepts: computational thinking, variables, conditionals, loops, CoT, few-shot prompting, context windows, hallucination mitigation.
+- **Next 60 minutes**: Complete group activities in three sets.
+- **Final 10 minutes**: Q&A with instructor.
+
+## Activities (60 minutes) 
+
+Group Members: Colin, Zane, Holden
+
+### Set 1: Decomposition, Edge Cases and Loops
+
+#### Task 1.1: Basic Decomposition  (10 minutes)
+
+**Objective**: Apply decomposition with variables for summarizing sections.
+
+**Steps**:
+
+1. Decompose the task: "Summarize the paper 'Attention Is All You Need'." Be as specific with your processes. Follow the usual format:
+   
+   - **Inputs**: Paper title, paper text, etc.
+   
+   - **Process**: Get all sections, extract key points per section, etc.
+   
+   - **Output**: Section names, etc. 
+     Each item in the list must have at least **distinct 3 components**. Use the following flowchart template to create your text-based flowchart:
+     
+     ```
+     [Start] --> [Inputs: "Attention is all you need", download online pdf from Cornell university, Section 4 (Expirements)] --> [Step 1: use section 4 only --> [Step 2: specifically "cross-catagory generation", focus on the charts provided comparing different adaoopters and clips. ] --> [Outputs: summmarize the charts in text format, label sections based on the different expirment catoagories, compare the two tasks cross-dataset generalization and cross-catogory, make a like and unlike circle chart comparing it with zero shot]
+     ```
+
+**Deliverables**:
+
+- Decomposition flowchart
+
+#### Task 1.2: Designing a Robust Paper Summarizer Prompt (10 minutes)
+
+**Objective**: Design a text-based flowchart and a prompt with conditionals to handle edge cases and loops.
+
+Background: You are currently interning at a research center that is developing an AI-powered summarization tool to help researchers quickly review long academic papers. The tool needs to:
+
+* Go through every section of an uploaded paper and create a short, clear summary of each one.
+
+* Handle problematic sections gracefully without crashing or producing meaningless output.
+
+Your team lead has asked you to design **the logic and prompt** for this tool.
+
+They have specifically asked you to include these two edge cases:
+
+1. Missing Section: The parser could not extract text from a section (the section is empty).
+
+2. Very Short Section: A section has fewer than 50 words and might not be worth summarizing.
+
+The system should skip these sections while clearly noting in the output why they were skipped.
+
+You must also include a for loop that goes through each section in the paper, summarizing them one by one and collecting the outputs.
+
+To do this, you need to:
+
+1. Anticipate and handle **edge cases** using **conditional logic**.
+
+2. Use a **for loop** to iterate through paper sections and summarize them.
+
+**Steps**:
+
+1. Create a text-based flowchart (in Markdown) showing the control flow logic for the conditionals and the loops. Use the template below.
+   
+   ```
+   [Start] --> 
+   [Inputs: sections list with section_title + section_text] --> Summarize Attention is all you need, every section, clearly summarize each section in bullet points
+   [] --> if a section is empty then take the header if one and use outside resources (google to gather information) if no heading skip the section
+   [] --> if section less than 50 words tie it into a relevant subject area and add bullets on it, if not important EX: acknowledgment statement then ignore it. 
+   [] --> Summarize the sections in order of first to last and make sure you fill all the outputs before moving on, put a line break to divide sections, dont stop generating until all sections meet outputs in order. 
+   ....
+   [] -->Deliever bullet point chart summarizing each section, keep in mind the if statments for missing work and short sections, clearly label each section on top of bullet points 
+   [Outputs: Markdown summaries + skip messages for all sections]
+   ```
+   
+   
+
+ 2. Read the text "Attention is all you need" from the Cornell Website, Clearly summarize each section of the text with bullet poiints. if a section is empty look at most recent header and reasarch ideas related to topic on google, if section is completly empty then skip it. if a section is under 50 words add bullets to most relevant subject area but skip things such as the acknowledge statment keep it related to the main topic. Summarize the sections in order from first to last clearly furfilling the outputs before you move on and keeping in mind the if statments. deliever a list of sections with the topics covered and bullet point list of the key points under it.
+
+3. https://copilot.microsoft.com/shares/8r1apH1JjafMj6qzVpfsN
+**Deliverables**:
+
+- Decomposition flowchart
+
+- Summarization prompt
+
+- Transcript link
+
+#### Task 1.3: (Optional) Looped Prompt Design (10 minutes)
+
+**Objective**: Use nested loops for iterative section summaries. This is an optional task that features a nested loop and conditionals. You receive extra marks for solving this task.
+
+**Background**: 
+You are currently interning at a research center that is developing an AI-powered summarization tool to help researchers quickly review long academic papers. The tool needs to:
+
+* Go through every section of an uploaded paper.
+
+* Inside each section, go through every subsection **(if any)** and summarize it.
+
+* Output all summaries using a clear and consistent format.
+
+Your team lead has asked you to design the logic and prompt instructions for this tool.
+
+They have specifically asked you to:
+
+1. Use an outer for loop to go through each section in the paper.
+
+2. Use an inner for loop to go through each subsection inside each section, if any. 
+
+3. Summarize each subsection in 100–150 words and display them grouped under their section titles.
+
+**Steps**:
+
+1. Create a text-based flowchart (in Markdown) showing the control flow logic for the nested loops. Use the template below:
+   
+   ```
+   [Start] -->
+   [Inputs: sections list, each with section_title + subsections list] -->
+   [] -->
+   [] -->
+   [] -->
+   ... -->
+   [] -->
+   [Outputs: Markdown summaries grouped by section, with bullet points for each subsection]
+   ```
+   
+   
+
+2. Write a **summarization prompt** based on your flowchart.
+3. Test your prompt with the Attention is All You Need paper. Save transcript.
+4. Write a 25-word ref
+
+### Set 2: CoT, and Few-Shot Prompting
+
+#### Task 2.1: Chain-of-Thought Summarizer Prompt  (10 minutes)
+
+**Objective**: Design a **CoT prompt** that guides a research paper summarizer to produce transparent, structured reasoning and multiple outputs per section.
+
+**Steps**:
+
+1. Create a CoT prompt that includes the following: a) explicit CoT instruction, b) for a certain section, provide an 50-word expert summary and a 50-word layperson summary of the main points, d) for a certain section, provides a mini glossary. Include variables where appropriate. 
+
+To summarize the reasearch paper {Paper_title}, first identify the main argument, then the supporting points then finally how it might relate to the paper's overall thesis, explaining your reasoning for each one along the way. After for the section entilted {section_title} provide two short summaries. One 50 word expert summary and one 50 word layperson summary of the main points of that specific section. Then for the section entilted {section_title} create a mini glossary of {term_count} key terms, with each of them having a one sentence description to provide clarity for readers.
+
+2. Test your prompt with the "Model architecture" section and a 50-word limit. Save transcript link via shareable link. 
+
+https://copilot.microsoft.com/shares/YxkXeoPHekAFh1acBUhRy
+
+**Deliverables**:
+
+- Prompt
+- Transcript link
+
+#### Task 2.2: Few-Shot Prompt for Consistent Formatting (10 minutes)
+
+**Objective**: Build a Few-Shot promp that uses your own outputs from Task 2.1 above as an example to teach the summarizer a consistent summarization style.
+
+**Steps**:
+
+1. Create a Few-Shot prompt that includes the expert and layperson summary the model provided in Task 2.1 as examples. The prompt should ask the model to provide similar formatting to summarize the Introduction, Background, and Results sections. 
+
+Following the exact same format as given below, for each of the sections entiled "Introduction", "Backround", and "Results" provide a 50-word expert summary and a 50-word layperson summary of the key points respective to each section. Do not deviate from the following format: 
+
+Section: Model Architecture
+👨‍🔬 Expert Summary (50 words)
+The Transformer architecture comprises stacked encoder and decoder layers built from multi-head self-attention and position-wise feed-forward networks. It replaces recurrence with parallelizable attention mechanisms, incorporates residual connections and layer normalization, and uses sinusoidal positional encodings to capture token order, enabling efficient and scalable sequence transduction.
+🧑‍🏫 Layperson Summary (50 words)
+The Transformer is a new kind of AI model that reads and writes sentences using attention instead of older methods like memory loops. It looks at all words at once, learns patterns faster, and uses math tricks to understand word order. This makes it quicker and better at translating languages
+
+2. Test your prompt with the 3 sections, save transcript link via shareable link. 
+
+https://copilot.microsoft.com/shares/JJAGQtK23sGTBzAesstpj
+
+**Deliverables**:
+
+- Prompt
+- Transcript link
+
+### Set 3: Iterative Refinement and Hallucination Mitigation
+
+#### Task 3.1: Iterative Refinement with Context Windows (10 minutes)
+
+**Objective**: Refine prompt design to work even when the research paper is longer than the model’s context limit.
+
+**Steps**:
+
+1. Refine your Task 2.2 Few-Shot prompt by adding the following context management strategies: a) instruct the model to summarize smaller chunks if the paper size exceeds the context window and b) introduce variables (e.g., [chunk1] and [chunk2]) to represent split parts of the paper. 
+
+Following the exact same format as given below, for each of the sections entiled "Introduction", "Backround", and "Results" provide a 50-word expert summary and a 50-word layperson summary of the key points respective to each section. If the paper size exeeds the context window, then split it into chunks enitled ([chunk 1], [chunk 2], etc..) to represent the split parts of the paper and summarize each chunk seperatly in the same format as the original, otherwise stick to the original format. Again, Do not deviate from the following format: 
+
+Section: Model Architecture
+👨‍🔬 Expert Summary (50 words)
+The Transformer architecture comprises stacked encoder and decoder layers built from multi-head self-attention and position-wise feed-forward networks. It replaces recurrence with parallelizable attention mechanisms, incorporates residual connections and layer normalization, and uses sinusoidal positional encodings to capture token order, enabling efficient and scalable sequence transduction.
+🧑‍🏫 Layperson Summary (50 words)
+The Transformer is a new kind of AI model that reads and writes sentences using attention instead of older methods like memory loops. It looks at all words at once, learns patterns faster, and uses math tricks to understand word order. This makes it quicker and better at translating languages
+
+
+
+
+2. Test, save transcript link via shareable link. 
+
+https://copilot.microsoft.com/shares/LTszqzMYuQ8PBP3Vown6C
+
+**Deliverables**:
+
+- Refined prompt
+- Transcript link
+
+#### Task 3.2: Hallucination-Proofing Your Prompts (10 minutes)
+
+**Objective**: Strengthen the prompts you wrote in earlier tasks by adding clear instructions that reduce hallucinations.  
+
+**Steps**:  
+
+1. Look back at the prompts you created in Set 1 and Set 2.  
+2. Choose **two prompts** you wrote.  
+3. Rewrite each one to include at least **one hallucination-mitigation instruction**, for example:  
+   - *“Only include information explicitly present in the paper.”*  
+
+ 
+1.Following the exact same format as given below, for each of the sections entiled "Introduction", "Backround", and "Results" provide a 50-word expert summary and a 50-word layperson summary of the key points respective to each section. Make sure to include only information explicitly stated in the text: do not assume, make up or draw on additional sources in your summaries.Do not deviate from the following format: 
+
+Section: Model Architecture
+👨‍🔬 Expert Summary (50 words)
+The Transformer architecture comprises stacked encoder and decoder layers built from multi-head self-attention and position-wise feed-forward networks. It replaces recurrence with parallelizable attention mechanisms, incorporates residual connections and layer normalization, and uses sinusoidal positional encodings to capture token order, enabling efficient and scalable sequence transduction.
+🧑‍🏫 Layperson Summary (50 words)
+The Transformer is a new kind of AI model that reads and writes sentences using attention instead of older methods like memory loops. It looks at all words at once, learns patterns faster, and uses math tricks to understand word order. This makes it quicker and better at translating languages 
+
+
+2) To summarize the reasearch paper {Paper_title}, first identify the main argument, then the supporting points then finally how it might relate to the paper's overall thesis, explaining your reasoning for each one along the way. After for the section entilted {section_title} provide two short summaries. One 50 word expert summary and one 50 word layperson summary of the main points of that specific section. Then for the section entilted {section_title} create a mini glossary of {term_count} key terms, with each of them having a one sentence description to provide clarity for readers. In making these summaries only summarize content given in each section, do not drawn on any piror knowledge or information on the subject.
+
+
+4. Test one of your rewritten prompts with *Attention Is All You Need*. Save the transcript link.   
+
+https://copilot.microsoft.com/shares/A4U9MPqs1vCqqzicYWHv3
+
+5. Write a 25-word reflection on how the output changed after adding hallucination-mitigation instructions. 
+
+The output at least to me didnt seem to change all that much, so it must have been doing a pretty good job earlier summarizing the relevant information. What i did notice however that the oputput took a little whilke longer to come through, like the LLM thought a liitle bit more about these new instructions so maybe this way the are where difference could be seen.
+
+
+**Deliverables**:  
+
+- Two rewritten prompts with hallucination-mitigation rules.  
+- Transcript link for one rewritten prompt.  
+- 25-word reflection
+  
+  
+
+## Group Assignment (5 minutes)
+
+**Objective**: Compile work and write a 100-word reflection on prompt engineering.
+
+**Steps**:
+
+1. Combine outputs into one Markdown file using the template below.
+2. Write a minimum of 100-word reflection. Reflect on everything you practiced in this tutorial. How did decomposition, variables, conditionals, loops, chain-of-thought, few-shot prompting, context windows, and hallucination mitigation interact to improve the **accuracy, clarity, and reliability** of LLM outputs? Which techniques did your group find most challenging to apply, and why? Which ones do you see as most useful in real-world applications, and how would you combine them when designing prompts for a professional or academic project? 
+
+All these structrued prompts help improve the clarity, accuracy and reliabilty of LLM because it makes sure the output is clear how we want it with reasoning, structured apporpriatley to the task at hand and transparent so we can go back and quickly refine our prompts in order to get better outputs in the future. The technique that we found the most difficult to apply was the context window management only beacsue itv was difficult to garsp what like token size meant and how differenmt chunks could sort of apply to different tokens or sections i guess of the paper. We think in the real world few shot prompting has the most applications because often we have specific formats we are supposed to adhere to whether it's a report or a memo or even maybe a presentatrion, few-shot prompting ensure the outputs stick to the rquired format. We would combine them together in projects to ensure that oputs are clear accurate and reliable.
+
+
+
+**Submission Template**:
+sorry everything was filled out not in this template like it should have but in all tyhe questions already - hope this isnt too hard to see
+```
+# Week 5 Group Reflection
+
+## Group Members
+- [List all group members’ names]
+
+## Set 1: Decomposition, Edge Cases and Loops
+### Task 1.1: Decomposition with Variables
+**Decomposition Flowchart**:
+[Insert text-based flowchart]
+
+### Task 1.2: Conditional Flowchart for Edge Cases
+**Flowchart**:
+[Insert text-based flowchart with conditionals]
+
+**Summarization Prompt**:
+[Insert prompt with edge-case handling]
+
+**Transcript Link**:
+[Insert Microsoft Copilot transcript link]
+
+### Task 1.3: Looped Prompt Design (Optional)
+**Flowchart**:
+[Insert text-based flowchart with nested loops]
+
+**Prompt**:
+[Insert summarization prompt with nested loops]
+
+**Transcript Link**:
+[Insert Microsoft Copilot transcript link]
+
+**25-word Reflection**:
+[Insert reflection]
+
+---
+
+## Set 2: CoT and Few-Shot Prompting
+
+### Task 2.1: Chain-of-Thought Summarizer Prompt
+**Prompt**:
+[Insert CoT prompt for the "Model Architecture" section]
+
+**Transcript Link**:
+[Insert Microsoft Copilot transcript link]
+
+### Task 2.2: Few-Shot Prompt for Consistent Formatting
+**Prompt**:
+[Insert Few-Shot prompt for Introduction, Background, and Results sections]
+
+**Transcript Link**:
+[Insert Microsoft Copilot transcript link]
+
+---
+
+## Set 3: Iterative Refinement and Hallucination Mitigation
+
+### Task 3.1: Iterative Refinement with Context Windows
+**Refined Prompt**:
+[Insert refined Few-Shot prompt with context management strategies]
+
+**Transcript Link**:
+[Insert Microsoft Copilot transcript link]
+
+### Task 3.2: Hallucination-Proofing Your Prompts
+**Original Prompts**:
+[Insert 2 original prompts from earlier tasks]
+
+**Rewritten Prompts (with hallucination-mitigation rules)**:
+[Insert 2 rewritten prompts]
+
+**Transcript Link**:
+[Insert Microsoft Copilot transcript link]
+
+**25-word Reflection**:
+[Insert reflection on how hallucination-proofing changed the outputs]
+
+---
+
+## Group Reflection (100 words)
+
+
+```
+
+**Deliverables**: Markdown file (`group#_week5_reflection.md`) with all task outputs, transcript links, and 100-word reflection.
